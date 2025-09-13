@@ -26,7 +26,6 @@ class CommandsCog(commands.Cog):
         embed.set_footer(text="Si votre pseudo est incorrect, merci de le signaler !", icon_url=target.avatar.url)
 
         await interaction.response.send_message(embed=embed)
-
     # use "interaction.followup.send(TEXT)" to send "TEXT" as a followup (as only one answer allowed)
     # use "interaction.response.defer()" to tell discord the bot is thinking. Then, use a followup to answer.
 
