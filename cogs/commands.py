@@ -11,21 +11,24 @@ class CommandsCog(commands.Cog):
     async def hello_world(self, interaction: discord.Interaction):
         await interaction.response.send_message("Hello World!")
 
-    @app_commands.command(name="confirm_player", description="Permet de donner la listes des infos a un joueur.")
-    async def verify_mc_player(self, interaction: discord.Interaction, pseudo: str, target: discord.User):
-        embed = discord.Embed(
-            title=f"Salut {target.mention}",
-            description=f"> → IP: `outerlands.fr:30001`\n"
-                        f"> → Modpack: [TechnoMastery](https://www.curseforge.com/minecraft/modpacks/techno-mastery)\n"
-                        f"> → Version de modpack : *v8.5*\n"
-                        f"> Rôle <@&1342104059234222160> donné à tout les membres\n"
-                        f"> → Règlement dans <#1248891010965045328>\n\n"
-                        f"**Ton pseudo ingame** :`{pseudo}`\n",
-            color=discord.Color.blue()
-        )
-        embed.set_footer(text="Si votre pseudo est incorrect, merci de le signaler !", icon_url=target.avatar.url)
+    pseudo_site = {
+        "minheur2000": "Minheur"
+    }
 
-        await interaction.response.send_message(embed=embed, allowed_mentions=discord.AllowedMentions.all())
+    @app_commands.command(name="pseudo_site", description="Récupérer votre pseudo sur le site.")
+    async def get_site_pseudo(self, interaction: discord.Interaction):
+        global pseudo_site
+        if interaction.user.id in pseudo_site:
+            await interaction.response.send_message(
+                f"Salut {interaction.user.mention} !\n"
+                f"Ton pseudo sur le site est `{pseudo_site[interaction.user.id]}` !"
+            )
+        else:
+            await interaction.response.send_message(
+                f"Salut {interaction.user.mention} !\n"
+                f"Tu n'a pas de pseudo sur le site...\n"
+                f"Demande à <@1095678128195653772> de t'ajouter !"
+            )
     # use "interaction.followup.send(TEXT)" to send "TEXT" as a followup (as only one answer allowed)
     # use "interaction.response.defer()" to tell discord the bot is thinking. Then, use a followup to answer.
 
